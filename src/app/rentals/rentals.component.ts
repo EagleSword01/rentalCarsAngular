@@ -5,9 +5,8 @@ import { MatSort } from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {FormsModule} from '@angular/forms';
-import { ClientsListService } from 'src/app/clients/new-client/new-client.service';
+import { RentalsListService } from 'src/app/rentals/new-rental/new-rental.service';
 import { map } from 'rxjs/operators';
-import { Client } from 'src/app/shared/newClient.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -33,12 +32,12 @@ export class RentalsComponent implements AfterViewInit {
   dataSource: any;
   data: any;
   dataFixed: any;
-  clients: Client[];
+
 
 
   private subscription: Subscription;
 
-  constructor(private clientsListService: ClientsListService,
+  constructor(private rentalsListService: RentalsListService,
     private route: ActivatedRoute,
               private router: Router,
               private afs: AngularFirestore,
@@ -53,13 +52,13 @@ export class RentalsComponent implements AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngAfterViewInit() {
-    this.afs.collection<any>('clients').valueChanges().subscribe(data => {
+    this.afs.collection<any>('rentals').valueChanges().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
     })
   }
 
-  onDeleteClient = data => this.clientsListService.deleteClient(data);
+  onDeleteRental = data => this.rentalsListService.deleteRental(data);
 
 
 
@@ -67,12 +66,12 @@ export class RentalsComponent implements AfterViewInit {
   //       this.clientsListService
   // .getClient(data).subscribe(res => (data = res) )
 
-  onEditClient(data) {
+  onEditRental(data) {
     console.log(data.cid);
 
 
 
-    this.router.navigate(['/clientedit', data.cid  ]);
+    this.router.navigate(['/rentaledit', data.cid  ]);
   }
 
 
@@ -80,11 +79,11 @@ export class RentalsComponent implements AfterViewInit {
 
 
 
-  clientss;
+  rentals;
 
-getClientss = () => {
-  return  this.clientsListService
-  .getClientss().pipe(map(res => (this.clientss = res) ))
+getRentals = () => {
+  return  this.rentalsListService
+  .getRentals().pipe(map(res => (this.rentals = res) ))
 }
 
 
