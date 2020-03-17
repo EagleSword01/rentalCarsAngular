@@ -1,0 +1,52 @@
+<app-header></app-header>
+<div class="col-sm-4">
+  <button class="btn btn-success" type="button"  routerLink="/newcar" >Add New Car</button>
+</div>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  ['carId', 'carName', 'licensePlate', 'yearPurchased', 'action'];
+  <!-- Position Column -->
+  <ng-container matColumnDef="carId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Car ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.carId}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="carName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Car Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.carName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="licensePlate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> License Plate </th>
+    <td mat-cell *matCellDef="let element"> {{element.licensePlate}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="yearPurchased">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Year Purchased  </th>
+    <td mat-cell *matCellDef="let element"> {{element.yearPurchased}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+    <td mat-cell *matCellDef="let element"> <button type="button" class="btn btn-primary   "style="cursor: pointer;" (click)="onEditCar(element)"><span class="glyphicon glyphicon-pencil"></span></button>
+    <button type="button" class="btn btn-danger  "style="cursor: pointer;" (click)="onDeleteCar(element)"><span class="glyphicon glyphicon-trash"></span></button></td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+
+
+
+    <app-footer></app-footer>

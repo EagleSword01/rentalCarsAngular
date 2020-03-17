@@ -1,0 +1,47 @@
+
+
+<app-header></app-header>
+<div class="container">
+    <form class="form-horizontal" [formGroup]='signupForm' (ngSubmit)="onSubmit()" >
+      <input type="hidden" id="cid" formControlName="cid"  >
+        <h2>NEW Car</h2>
+
+        <div class="form-group">
+            <label for="carId" class="col-sm-3 control-label">Car ID</label>
+            <div class="col-sm-9">
+                <input type="text" name="carId" formControlName="carId"  id="carId" placeholder="carId"  class="form-control" autofocus ngModel required >
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('carId').valid && signupForm.get('carId').touched " >enter a valid carId</span>
+        </div>
+        <div class="form-group">
+            <label for=" carName" class="col-sm-3 control-label">Car Name</label>
+            <div class="col-sm-9">
+                <input type="text" name="carName" formControlName="carName" id="carName" placeholder="carName" class="form-control" autofocus ngModel required >
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('carName').valid && signupForm.get('carName').touched " >enter a valid Car Name</span>
+        </div>
+        <div class="form-group">
+            <label for="licensePlate" class="col-sm-3 control-label">License Plate</label>
+            <div class="col-sm-9">
+                <input type="text" name="licensePlate" formControlName="licensePlate"  id="licensePlate" placeholder="licensePlate" class="form-control" autofocus ngModel required>
+
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('licensePlate').valid && signupForm.get('licensePlate').touched " >enter a valid License Plate</span>
+        </div>
+
+        <div class="form-group">
+            <label for="year Purchased" class="col-sm-3 control-label">year Purchased</label>
+            <div class="col-sm-9">
+                <input type="text" name="yearPurchased" formControlName="yearPurchased" id="yearPurchased" placeholder="yearPurchased" class="form-control" ngModel name="yearPurchased" required>
+
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('yearPurchased').valid && signupForm.get('yearPurchased').touched" >enter a valid Year Purchased</span>
+        </div>
+
+         <!-- /.form-group -->
+
+        <button type="submit" class="btn btn-primary btn-block" name="button" [disabled]="signupForm.invalid" >ADD CAR</button>
+    </form> <!-- /form -->
+  </div> <!-- ./container -->
+
+  <app-footer></app-footer>

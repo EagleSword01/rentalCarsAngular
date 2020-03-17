@@ -1,0 +1,46 @@
+
+
+<app-header></app-header>
+<div class="container">
+    <form class="form-horizontal" [formGroup]='signupForm' (ngSubmit)="onSubmit()" >
+      <input type="hidden" id="cid" formControlName="cid"  >
+        <h2>NEW CLIENT</h2>
+        <div class="form-group">
+            <label for="Name" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9">
+                <input type="text" name="name" formControlName="name"  id="name" placeholder="name"  class="form-control" autofocus ngModel required >
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched " >enter a valid name</span>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9">
+                <input type="text" name="address" formControlName="address" id="address" placeholder="Address" class="form-control" autofocus ngModel required >
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('address').valid && signupForm.get('address').touched " >enter a valid Address</span>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-3 control-label">Phone</label>
+            <div class="col-sm-9">
+                <input type="text" name="phone" formControlName="phone"  id="phone" placeholder="Phone" class="form-control" autofocus ngModel required>
+
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched " >enter a valid phone number</span>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+                <input type="text" name="email" formControlName="email" id="email" placeholder="Email" class="form-control" ngModel name="email" required email>
+
+            </div>
+            <span class="help-block " *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" >enter a valid email</span>
+        </div>
+
+         <!-- /.form-group -->
+
+        <button type="submit" class="btn btn-primary btn-block" name="button" [disabled]="signupForm.invalid" >ADD CLIENT</button>
+    </form> <!-- /form -->
+  </div> <!-- ./container -->
+
+  <app-footer></app-footer>
