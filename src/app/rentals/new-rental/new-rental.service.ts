@@ -47,7 +47,7 @@ export class RentalsListService {
     return this.firestore.collection("rentals").doc(id).get();
 
   }
-  editRentals(name, address, phone, email, cid) {
+  editRental(name, address, phone, email, cid) {
     return this.firestore
       .collection("rentals")
       .doc(cid)

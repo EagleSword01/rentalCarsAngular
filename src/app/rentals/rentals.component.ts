@@ -12,10 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 export interface PeriodicElement {
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
+  contractNumber: string;
+  clientName: string;
+  carId: string;
+  startDate: string;
+  endDate: string;
 }
 
 
@@ -28,7 +29,7 @@ export interface PeriodicElement {
   styleUrls: ['./rentals.component.css']
 })
 export class RentalsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name', 'address', 'phone', 'email', 'action'];
+  displayedColumns: string[] = ['contractNumber', 'carId', 'clientName', 'startDate', 'endDate', 'action'];
   dataSource: any;
   data: any;
   dataFixed: any;

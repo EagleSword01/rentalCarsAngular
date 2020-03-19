@@ -2,8 +2,7 @@
 
 <app-header></app-header>
 <div class="container">
-    <form class="form-horizontal" [formGroup]='signupForm' (ngSubmit)="onSubmit()" >
-      <input type="hidden" id="cid" formControlName="cid"  >
+    <form class="form-horizontal" [formGroup]='editForm' (ngSubmit)="onSubmit()" >
       <input type="hidden" id="startDate" formControlName="startDate"  >
       <input type="hidden" id="endDate" formControlName="endDate"  >
         <h2>NEW RENTAL</h2>
@@ -13,7 +12,7 @@
           <div class="col-sm-9">
               <input type="text" name="contractNumber" formControlName="contractNumber" id="contractNumber" placeholder="contractNumber" class="form-control" autofocus ngModel required >
           </div>
-          <span class="help-block " *ngIf="!signupForm.get('contractNumber').valid && signupForm.get('contractNumber').touched " >enter a valid contract number</span>
+          <span class="help-block " *ngIf="!editForm.get('contractNumber').valid && editForm.get('contractNumber').touched " >enter a valid contract number</span>
       </div>
         <div class="form-group">
           <label for="Name" class="col-sm-3 control-label">Client Name</label>
@@ -59,7 +58,7 @@
                 <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
             </mat-form-field>
             </div>
-            <span class="help-block " *ngIf="!signupForm.get('phone').valid && signupForm.get('phone').touched " >enter a valid phone number</span>
+            <span class="help-block " *ngIf="!editForm.get('phone').valid && editForm.get('phone').touched " >enter a valid phone number</span>
         </div>
 
         <div class="form-group">
@@ -68,12 +67,12 @@
                 <input type="text" name="email" formControlName="email" id="email" placeholder="Email" class="form-control" ngModel name="email" required email>
 
             </div>
-            <span class="help-block " *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" >enter a valid email</span>
+            <span class="help-block " *ngIf="!editForm.get('email').valid && editForm.get('email').touched" >enter a valid email</span>
         </div>
 
          <!-- /.form-group -->
 
-        <button type="submit" class="btn btn-primary btn-block" name="button" [disabled]="signupForm.invalid" >ADD Rental</button>
+        <button type="submit" class="btn btn-primary btn-block" name="button" [disabled]="editForm.invalid" >ADD Rental</button>
     </form> <!-- /form -->
   </div> <!-- ./container -->
 
