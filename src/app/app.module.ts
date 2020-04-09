@@ -34,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RentalsListService } from './rentals/new-rental/new-rental.service';
 import { NewRentalComponent } from './rentals/new-rental/new-rental.component';
 import { RentalEditComponent } from './rentals/rental-edit/rental-edit.component';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RentalEditComponent } from './rentals/rental-edit/rental-edit.component
     LoadingSpinnerComponent,
     CarEditComponent,
     RentalEditComponent,
+    TestComponent,
 
 
 
