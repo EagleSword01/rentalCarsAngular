@@ -5,6 +5,8 @@ import { FormGroup, FormControl, Validators, FormArray, AsyncValidatorFn, NgForm
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 export interface SatDatepickerRangeValue<D> {
   begin: D | null;
   end: D | null;
@@ -17,6 +19,11 @@ export interface SatDatepickerRangeValue<D> {
   styleUrls: ['./rental-edit.component.css']
 })
 export class RentalEditComponent implements OnInit {
+
+
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
+
   oldRental;
   clientss;
   cars;
@@ -31,8 +38,10 @@ export class RentalEditComponent implements OnInit {
   console.log(this.oldRental);
   this.editForm.patchValue({
 
-    'contractNumber': this.oldRental.contractNumber,
-
+    'contractNumber': this.oldRental.endDate.date + '1',
+      "email": this.oldRental.email,
+      'clientName': this.oldRental.clientName,
+      'contractDuration' : this.oldRental.endDate.date
 
 
   });
@@ -60,8 +69,20 @@ console.log(res)
 
   ngOnInit() {
 
+this.afs.collection<any>('clients').valueChanges().subscribe(data => {
+      this.options = data.map(a => a.name)
+      this.filteredOptions = this.clientName.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+     })
 
       let id =this.route.snapshot.paramMap.get('id');
+
+      this.afs.collection<any>('cars').valueChanges().subscribe(data => {
+        this.cars = data
+       })
 
         this.loadRental(id);
 
@@ -78,12 +99,8 @@ console.log(res)
       email: new FormControl([Validators.required, Validators.email]),
     });
 
-this.afs.collection<any>('clients').valueChanges().subscribe(data => {
-     this.clientss = data
-    })
-    this.afs.collection<any>('cars').valueChanges().subscribe(data => {
-      this.cars = data
-     })
+
+
 
 
   }
@@ -108,6 +125,10 @@ this.afs.collection<any>('clients').valueChanges().subscribe(data => {
   }
 
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 }
 

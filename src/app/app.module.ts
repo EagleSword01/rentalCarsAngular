@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { RentalsComponent } from './rentals/rentals.component';
@@ -35,7 +35,8 @@ import { RentalsListService } from './rentals/new-rental/new-rental.service';
 import { NewRentalComponent } from './rentals/new-rental/new-rental.component';
 import { RentalEditComponent } from './rentals/rental-edit/rental-edit.component';
 import { TestComponent } from './test/test.component';
-
+import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { TestComponent } from './test/test.component';
     CarEditComponent,
     RentalEditComponent,
     TestComponent,
-
+    AuthComponent
 
 
 
@@ -84,8 +85,14 @@ import { TestComponent } from './test/test.component';
 
   ],
   providers: [ClientsListService, AngularFirestore, CarsListService,RentalsListService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

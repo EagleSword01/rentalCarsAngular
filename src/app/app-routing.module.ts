@@ -9,18 +9,21 @@ import { NewCarComponent } from "./cars/new-car/new-car.component";
 import { ClientEditComponent } from "./clients/client-edit/client-edit.component";
 import { CarEditComponent } from "./cars/car-edit/car-edit.component";
 import { RentalEditComponent } from "./rentals/rental-edit/rental-edit.component";
+import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/rentals', pathMatch: 'full'},
-    {path: 'clients', component: ClientsComponent },
-    {path: 'rentals', component: RentalsComponent },
-    {path: 'cars', component: CarsComponent },
-    {path: 'newclient', component: NewClientComponent },
-    {path: 'newrental', component: NewRentalComponent },
-    {path: 'newcar', component: NewCarComponent },
-    {path: 'clientedit/:id',component: ClientEditComponent },
-    {path: 'caredit/:id',component: CarEditComponent },
-    {path: 'rentaledit/:id',component: RentalEditComponent }
+    {path: 'clients', component: ClientsComponent, canActivate: [AuthGuard], },
+    {path: 'rentals', component: RentalsComponent, canActivate: [AuthGuard],},
+    {path: 'cars', component: CarsComponent, canActivate: [AuthGuard] },
+    {path: 'newclient', component: NewClientComponent, canActivate: [AuthGuard] },
+    {path: 'newrental', component: NewRentalComponent, canActivate: [AuthGuard] },
+    {path: 'newcar', component: NewCarComponent, canActivate: [AuthGuard] },
+    {path: 'clientedit/:id',component: ClientEditComponent, canActivate: [AuthGuard] },
+    {path: 'caredit/:id',component: CarEditComponent, canActivate: [AuthGuard] },
+    {path: 'rentaledit/:id',component: RentalEditComponent, canActivate: [AuthGuard] },
+    { path: 'auth', component: AuthComponent }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],

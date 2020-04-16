@@ -9,8 +9,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import { phoneNumberValidator } from 'src/app/shared/validators/phone-validator'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ClientsListService } from 'src/app/clients/new-client/new-client.service';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+import { Observable } from 'rxjs';
 
 
 export interface SatDatepickerRangeValue<D> {
@@ -26,6 +27,8 @@ export interface SatDatepickerRangeValue<D> {
 export class NewRentalComponent implements OnInit {
 
 
+  options: string[] = [];
+  filteredOptions: Observable<string[]>;
 
    signupForm: FormGroup;
    randomId= "hello";
@@ -37,6 +40,15 @@ export class NewRentalComponent implements OnInit {
   constructor(private rentalsListService: RentalsListService,  private router: Router, private afs: AngularFirestore, private clientsListService: ClientsListService) { }
 
   ngOnInit() {
+    this.afs.collection<any>('clients').valueChanges().subscribe(data => {
+      this.options = data.map(a => a.name)
+      this.filteredOptions = this.clientName.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+     })
+
     this.randomId =  Math.random().toString(36).replace('0.', '') ;
 
 
@@ -68,7 +80,7 @@ export class NewRentalComponent implements OnInit {
 
 
   onSubmit() {
-    this.signupForm.patchValue({cid: this.randomId,  startDate: this.signupForm.value.phone.begin._i, endDate: this.signupForm.value.phone.end._i, clientName: this.clientName.value.name,  carId  : this.carId.value.carId, phone: ''})
+    this.signupForm.patchValue({cid: this.randomId,  startDate: this.signupForm.value.phone.begin._i, endDate: this.signupForm.value.phone.end._i, clientName: this.clientName.value,  carId  : this.carId.value.carId, phone: ''})
     let data = this.signupForm.value;
     this.afs.collection('rentals').doc(data.cid).set(data)
 
@@ -79,7 +91,11 @@ export class NewRentalComponent implements OnInit {
   }
 
 
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 
 
 }
