@@ -29,6 +29,9 @@ import { AngularFireModule } from '@angular/fire';
 import { CarEditComponent } from './cars/car-edit/car-edit.component';
 import { CarsListService } from './cars/new-car/new-car.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule } from '@angular/material/card';
+import {MatDatepickerModule } from '@angular/material/Datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { RentalsListService } from './rentals/new-rental/new-rental.service';
@@ -60,6 +63,9 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
   ],
   imports: [
+    MatDatepickerModule,
+    MatCardModule,
+    MatIconModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

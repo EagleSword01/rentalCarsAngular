@@ -3,7 +3,7 @@
 <app-header></app-header>
 <div class="container">
     <form class="form-horizontal" [formGroup]='editForm' (ngSubmit)="onSubmit()" >
-      <input type="hidden" id="startDate" formControlName="startDate"  >
+
       <input type="hidden" id="endDate" formControlName="endDate"  >
         <h2>NEW RENTAL</h2>
 
@@ -17,7 +17,11 @@
       <div class="form-group">
         <label for="Name" class="col-sm-3 control-label">Client Name</label>
         <mat-form-field class="example-full-width">
-          <input type="text"
+          <input
+          formControlName="clientName"
+          name="clientName"
+           id="clientName"
+             type="text"
                  placeholder="client Name"
                  aria-label="Number"
                  matInput
@@ -35,7 +39,12 @@
         <label for="carId" class="col-sm-3 control-label">Car ID</label>
         <mat-form-field>
           <mat-label>Car ID</mat-label>
-          <mat-select [formControl]="carId" required>
+          <mat-select [formControl]="carId"
+          formControlName="carId"
+          name="carId"
+           id="carId"
+
+          required>
             <mat-option>--</mat-option>
             <mat-option *ngFor="let car of cars" [value]="car">
               {{car.carId}}
@@ -50,17 +59,15 @@
         <div class="form-group">
             <label for="phone" class="col-sm-3 control-label">Contract Duration</label>
             <div class="col-sm-9">
-              <mat-form-field>
-                <input matInput
-                       placeholder="Choose a date"
-                       [satDatepicker]="picker2"
-                       formControlName="phone">
-                <sat-datepicker #picker2 [rangeMode]="true">
-                </sat-datepicker>
-                <sat-datepicker-toggle matSuffix [for]="picker2"></sat-datepicker-toggle>
+
+            <mat-form-field>
+
+              <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="startDate" id="startDate" formControlName="startDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             </div>
-            <span class="help-block " *ngIf="!editForm.get('phone').valid && editForm.get('phone').touched " >enter a valid phone number</span>
+
         </div>
 
         <div class="form-group">

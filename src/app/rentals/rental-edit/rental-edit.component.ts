@@ -29,7 +29,7 @@ export class RentalEditComponent implements OnInit {
   cars;
   clientName = new FormControl('', Validators.required);
     carId = new FormControl('', Validators.required);
-
+  phone = new FormControl('', Validators.required);
   editForm: FormGroup;
   loadRental = id =>
   this.rentalsListService
@@ -38,11 +38,12 @@ export class RentalEditComponent implements OnInit {
   console.log(this.oldRental);
   this.editForm.patchValue({
 
-    'contractNumber': this.oldRental.endDate.date + '1',
+    'contractNumber': this.oldRental.contractNumber,
       "email": this.oldRental.email,
       'clientName': this.oldRental.clientName,
-      'contractDuration' : this.oldRental.endDate.date
-
+      'startDate':this.oldRental.startDate.month + '/' + this.oldRental.startDate.date +'/' +this.oldRental.startDate.year ,
+      'phone' :  + ' - '+ this.oldRental.endDate.month + '/' + this.oldRental.endDate.date +'/' +this.oldRental.endDate.year,
+      'carId' : this.oldRental.carId,
 
   });
 console.log(res)
@@ -108,20 +109,14 @@ this.afs.collection<any>('clients').valueChanges().subscribe(data => {
 
   rental = {};
   onSubmit() {
-    this.editForm.value.rental = this.rental;
+    this.editForm.patchValue({  startDate: this.editForm.value.phone.begin._i, endDate: this.editForm.value.phone.end._i, clientName: this.clientName.value,  carId  : this.carId.value.carId, phone: ''})
+    let data = this.editForm.value;
+    this.afs.collection('rentals').doc(data.cid).set(data)
 
 
-
-
-    let carId= this.editForm.value.carId;
-    let carName = this.editForm.value.carName;
-    let  licensePlate =this.editForm.value.licensePlate;
-    let yearPurchased = this.editForm.value.yearPurchased;
-    let id =  this.route.snapshot.paramMap.get('id');
-    this.rentalsListService.editRental(carId,carName, licensePlate, yearPurchased, id);
 
     this.editForm.reset();
-    this.router.navigateByUrl('/cars');
+    this.router.navigateByUrl('/rentals');
   }
 
 
